@@ -2,7 +2,7 @@ import torch
 import os
 import wandb
 from pytorch_lightning.loggers import WandbLogger
-from pytorch_lightning import LightningModule, Trainer, LightningDataModule, Callback
+from pytorch_lightning import Trainer, Callback
 from pytorch_lightning.callbacks import ModelCheckpoint
 
 from utils.arghandler import get_args

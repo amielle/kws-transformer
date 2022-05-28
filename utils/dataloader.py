@@ -7,6 +7,7 @@ from torchvision.transforms import ToTensor
 from torchaudio.datasets import SPEECHCOMMANDS
 from torchaudio.datasets.speechcommands import load_speechcommands_item
 from einops import rearrange
+from pytorch_lightning import LightningDataModule
 
 
 class SilenceDataset(SPEECHCOMMANDS):

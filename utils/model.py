@@ -1,14 +1,10 @@
 import torch
-import torchvision
-
-from argparse import ArgumentParser
-from pytorch_lightning import LightningModule, Trainer, LightningDataModule
+from pytorch_lightning import LightningModule
 from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from torchmetrics.functional import accuracy
-from einops import rearrange
 from torch import nn
-from torchvision.datasets.cifar import CIFAR10
+
 
 class Attention(nn.Module):
     def __init__(self, dim, num_heads=8, qkv_bias=False):
