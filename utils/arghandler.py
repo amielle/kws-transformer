@@ -3,12 +3,12 @@ from argparse import ArgumentParser
 def get_args():
     parser = ArgumentParser()
     # model training hyperparameters
-    parser.add_argument('--batch-size', type=int, default=32, metavar='N',
-                        help='input batch size for training (default: 64)')
+    parser.add_argument('--batch-size', type=int, default=128, metavar='N',
+                        help='input batch size for training (default: 128)')
     parser.add_argument('--max-epochs', type=int, default=30, metavar='N',
                         help='number of epochs to train (default: 30)')
-    parser.add_argument('--lr', type=float, default=0.001, metavar='LR',
-                        help='learning rate (default: 0.001)')
+    parser.add_argument('--lr', type=float, default=0.005, metavar='LR',
+                        help='learning rate (default: 0.005)')
 
     # where dataset will be stored
     parser.add_argument("--path", type=str, default="data/speech_commands/")
@@ -31,7 +31,7 @@ def get_args():
     # transformer arguments
     parser.add_argument('--depth', type=int, default=12, help='depth')
     parser.add_argument('--embed_dim', type=int, default=64, help='embedding dimension')
-    parser.add_argument('--num_heads', type=int, default=4, help='num_heads')
+    parser.add_argument('--num_heads', type=int, default=8, help='num_heads')
 
     parser.add_argument('--patch_num', type=int, default=8, help='patch_num')
     parser.add_argument('--kernel_size', type=int, default=3, help='kernel size')
