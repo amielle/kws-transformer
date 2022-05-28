@@ -1,18 +1,12 @@
 import torch
-import torchaudio, torchvision
+import torchaudio
 import os
-import matplotlib.pyplot as plt 
 import librosa
-import argparse
 import numpy as np
-import wandb
-from pytorch_lightning import LightningModule, Trainer, LightningDataModule, Callback
-from pytorch_lightning.callbacks import ModelCheckpoint
-from pytorch_lightning.loggers import WandbLogger
-from torchmetrics.functional import accuracy
 from torchvision.transforms import ToTensor
 from torchaudio.datasets import SPEECHCOMMANDS
 from torchaudio.datasets.speechcommands import load_speechcommands_item
+from einops import rearrange
 
 
 class SilenceDataset(SPEECHCOMMANDS):
