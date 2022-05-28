@@ -74,7 +74,10 @@ if __name__ == "__main__":
                         patch_dim=patch_dim, seqlen=seqlen,)
 
     # wandb is a great way to debug and visualize this model
-    wandb_logger = WandbLogger(project="transformer-kws")
+    if not args.no_wandb:
+        wandb_logger = WandbLogger(project="transformer-kws")
+    else:
+        wandb_logger = None
 
     model_checkpoint = ModelCheckpoint(
         dirpath=os.path.join(args.path, "checkpoints"),
@@ -89,7 +92,7 @@ if __name__ == "__main__":
                     devices=args.devices,
                     precision=args.precision,
                     max_epochs=args.max_epochs,
-                    logger=wandb_logger if not args.no_wandb else None,
+                    logger=wandb_logger,
                     callbacks=[model_checkpoint, WandbCallback() if not args.no_wandb else None])
     model.hparams.sample_rate = datamodule.sample_rate
     model.hparams.idx_to_class = idx_to_class

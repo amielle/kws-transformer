@@ -33,7 +33,7 @@ def get_args(parser):
     parser.add_argument('--patch_num', type=int, default=8, help='patch_num')
     parser.add_argument('--kernel_size', type=int, default=3, help='kernel size')
     
-    parser.add_argument("--no-wandb", type=bool, default=False)
+    parser.add_argument("--no-wandb", type=bool, default=True)
 
     args = parser.parse_args("")
     return args
