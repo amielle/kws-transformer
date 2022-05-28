@@ -4,6 +4,7 @@ import wandb
 from pytorch_lightning.loggers import WandbLogger
 from pytorch_lightning import Trainer, Callback
 from pytorch_lightning.callbacks import ModelCheckpoint
+from argparse import ArgumentParser
 
 from utils.arghandler import get_args
 from utils.dataloader import KWSDataModule
@@ -38,7 +39,10 @@ class WandbCallback(Callback):
                 data=data)
 
 if __name__ == "__main__":
-    args = get_args()
+    parser = ArgumentParser()
+    args = get_args(parser)
+    print("No wandb:",args.no_wandb)
+
     CLASSES = ['silence', 'unknown', 'backward', 'bed', 'bird', 'cat', 'dog', 'down', 'eight', 'five', 'follow',
             'forward', 'four', 'go', 'happy', 'house', 'learn', 'left', 'marvin', 'nine', 'no',
             'off', 'on', 'one', 'right', 'seven', 'sheila', 'six', 'stop', 'three',

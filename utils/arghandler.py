@@ -1,7 +1,4 @@
-from argparse import ArgumentParser
-
-def get_args():
-    parser = ArgumentParser()
+def get_args(parser):
     # model training hyperparameters
     parser.add_argument('--batch-size', type=int, default=128, metavar='N',
                         help='input batch size for training (default: 128)')
@@ -36,7 +33,7 @@ def get_args():
     parser.add_argument('--patch_num', type=int, default=8, help='patch_num')
     parser.add_argument('--kernel_size', type=int, default=3, help='kernel size')
     
-    parser.add_argument("--no-wandb", default=False)
+    parser.add_argument("--no-wandb", type=bool, default=False)
 
     args = parser.parse_args("")
     return args
