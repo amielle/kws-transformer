@@ -43,7 +43,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     args = get_args(parser)
     print("No wandb:",args.no_wandb)
-  
+
     CLASSES = ['silence', 'unknown', 'backward', 'bed', 'bird', 'cat', 'dog', 'down', 'eight', 'five', 'follow',
             'forward', 'four', 'go', 'happy', 'house', 'learn', 'left', 'marvin', 'nine', 'no',
             'off', 'on', 'one', 'right', 'seven', 'sheila', 'six', 'stop', 'three',
@@ -52,27 +52,25 @@ if __name__ == "__main__":
     # make a dictionary from CLASSES to integers
     CLASS_TO_IDX = {c: i for i, c in enumerate(CLASSES)}
     if not os.path.exists(args.path):
-            os.makedirs(args.path, exist_ok=True)
+        os.makedirs(args.path, exist_ok=True)
 
     datamodule = KWSDataModule(batch_size=args.batch_size, num_workers=args.num_workers,
                                 path=args.path, n_fft=args.n_fft, n_mels=args.n_mels,
                                 win_length=args.win_length, hop_length=args.hop_length,
-                                patch_num=32,
+                                patch_num=args.patch_num,
                                 class_dict=CLASS_TO_IDX)
     datamodule.setup()
 
     data = iter(datamodule.train_dataloader()).next()
-
     patch_dim = data[0].shape[-1]
     seqlen = data[0].shape[-2]
     print("Embed dim:", args.embed_dim)
-    print("Patch size:", 32 // args.patch_num)
     print("Sequence length:", seqlen)
-
 
     model = KWSTransformer(num_classes=37, lr=args.lr, epochs=args.max_epochs, 
                         depth=args.depth, embed_dim=args.embed_dim, head=args.num_heads,
                         patch_dim=patch_dim, seqlen=seqlen,)
+
 
     # wandb is a great way to debug and visualize this model
 
@@ -98,7 +96,7 @@ if __name__ == "__main__":
                     devices=args.devices,
                     precision=args.precision,
                     max_epochs=args.max_epochs,
-                    logger=wandb_logger,
+                    logger=wandb_logger if not args.no_wandb else None,
                     callbacks=callbacks)
     model.hparams.sample_rate = datamodule.sample_rate
     model.hparams.idx_to_class = idx_to_class
