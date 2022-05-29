@@ -1,4 +1,5 @@
 import torch
+import time
 import os
 import wandb
 from pytorch_lightning.loggers import WandbLogger
@@ -34,7 +35,7 @@ class WandbCallback(Callback):
             data = [[wandb.Audio(wav, sample_rate=sample_rate), wandb.Image(mel), idx_to_class[label], idx_to_class[pred]] for wav, mel, label, pred in list(
                 zip(wavs[:n], mels[:n], labels[:n], preds[:n]))]
             wandb_logger.log_table(
-                key='ResNet18 on KWS using PyTorch Lightning',
+                key='KWS using Transformer and PyTorch Lightning',
                 columns=columns,
                 data=data)
 
@@ -42,7 +43,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     args = get_args(parser)
     print("No wandb:",args.no_wandb)
-
+  
     CLASSES = ['silence', 'unknown', 'backward', 'bed', 'bird', 'cat', 'dog', 'down', 'eight', 'five', 'follow',
             'forward', 'four', 'go', 'happy', 'house', 'learn', 'left', 'marvin', 'nine', 'no',
             'off', 'on', 'one', 'right', 'seven', 'sheila', 'six', 'stop', 'three',
@@ -74,10 +75,6 @@ if __name__ == "__main__":
                         patch_dim=patch_dim, seqlen=seqlen,)
 
     # wandb is a great way to debug and visualize this model
-    if not args.no_wandb:
-        wandb_logger = WandbLogger(project="transformer-kws")
-    else:
-        wandb_logger = None
 
     model_checkpoint = ModelCheckpoint(
         dirpath=os.path.join(args.path, "checkpoints"),
@@ -88,16 +85,28 @@ if __name__ == "__main__":
         mode='max',
     )
     idx_to_class = {v: k for k, v in CLASS_TO_IDX.items()}
+
+    if not args.no_wandb:
+        import time
+        wandb_logger = WandbLogger(project=f"kws-{time.time()}")
+        callbacks = [model_checkpoint, WandbCallback()]
+    else:
+        wandb_logger = None
+        callbacks = [model_checkpoint]
+
     trainer = Trainer(accelerator=args.accelerator,
                     devices=args.devices,
                     precision=args.precision,
                     max_epochs=args.max_epochs,
                     logger=wandb_logger,
-                    callbacks=[model_checkpoint, WandbCallback() if not args.no_wandb else None])
+                    callbacks=callbacks)
     model.hparams.sample_rate = datamodule.sample_rate
     model.hparams.idx_to_class = idx_to_class
     trainer.fit(model, datamodule=datamodule)
     trainer.test(model, datamodule=datamodule)
 
-    wandb.finish()
-    trainer.save_checkpoint('checkpoint.ckpt')
+    if not args.no_wandb: wandb.finish()
+
+    script = model.to_torchscript()
+    model_path = f"{os.getcwd()}/models/transformer-kws-{int(time.time())}.pt"
+    torch.jit.save(script, model_path)
