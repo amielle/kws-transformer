@@ -46,10 +46,11 @@ def get_args():
     parser.add_argument("--win-length", type=int, default=None)
     parser.add_argument("--hop-length", type=int, default=512)
     parser.add_argument("--wav-file", type=str, default=None)
-    parser.add_argument("--checkpoint", type=str, default="transformer-model1-79.50-checkpoint.pt")
-    parser.add_argument("--gui", default=False, action="store_true")
+    parser.add_argument("--checkpoint", type=str, default="transformer-kws-checkpoint.pt")
+    parser.add_argument("--gui", default=True, action="store_true")
     parser.add_argument("--rpi", default=False, action="store_true")
-    parser.add_argument("--threshold", type=float, default=0.6)
+    parser.add_argument("--threshold", type=float, default=0.85)
+    parser.add_argument('--patch_num', type=int, default=4, help='patch_num')
     args = parser.parse_args()
     return args
 
@@ -157,7 +158,7 @@ if __name__ == "__main__":
             mel = ToTensor()(librosa.power_to_db(transform(waveform).squeeze().numpy(), ref=np.max))
 
         mel = mel.unsqueeze(0)
-        mel = rearrange(mel, 'b c (p1 h) (p2 w) -> b (p1 p2) (c h w)', p1=8, p2=8)
+        mel = rearrange(mel, 'b c (p1 h) (p2 w) -> b (p1 p2) (c h w)', p1=args.patch_num, p2=args.patch_num)
         
         pred = scripted_module(mel)
         pred = torch.functional.F.softmax(pred, dim=1)
