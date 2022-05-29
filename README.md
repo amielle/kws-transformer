@@ -69,7 +69,7 @@ pip install librosa
 pip install validators
 ```
 
-2. Train the model. Before running the training script, make sure that your machine has **at least 10GB** free due to the dataset that will be downloaded locally.
+2. Train the model. Before running the training script, make sure that your machine has **at least 10GB** free due to the dataset that will be downloaded locally. For the current parameters, during training the model tends to have best test accuracies with values ranging from 85-87% around the 20-30th epoch and can be adjusted during experimentation.
 
 NOTE: This step is optional since the test script will use the trained model if there is no locally trained model.
 
