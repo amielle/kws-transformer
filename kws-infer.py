@@ -46,7 +46,7 @@ def get_args():
     parser.add_argument("--win-length", type=int, default=None)
     parser.add_argument("--hop-length", type=int, default=512)
     parser.add_argument("--wav-file", type=str, default=None)
-    parser.add_argument("--checkpoint", type=str, default="transformer-kws-checkpoint.pt")
+    parser.add_argument("--checkpoint", type=str, default="transformer-kws-model5-1653808517.pt")
     parser.add_argument("--gui", default=True, action="store_true")
     parser.add_argument("--rpi", default=False, action="store_true")
     parser.add_argument("--threshold", type=float, default=0.8)
