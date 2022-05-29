@@ -60,7 +60,7 @@ pip install librosa
 pip install validators
 ```
 
-2. Train the model
+2. Train the model. Before running the training script, make sure that your machine has **at least 10GB** free due to the dataset that will be downloaded locally.
 
 NOTE: This step is optional since the test script will use the fine-tuned model if there is no locally trained model.
 ```bash
