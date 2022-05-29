@@ -562,6 +562,7 @@ pyproj==3.1.0
 pyrsistent==0.18.1
 pysal==2.6.0
 pyshp==2.3.0
+PySimpleGUI==4.60.1
 PySocks==1.7.1
 pystan==2.19.1.1
 pytesseract==0.3.9
@@ -655,6 +656,7 @@ sniffio==1.2.0
 snowballstemmer==2.2.0
 snuggs==1.4.7
 sortedcontainers==2.4.0
+sounddevice==0.4.4
 SoundFile==0.10.3.post1
 soupsieve==2.3.1
 spacy==3.2.4
@@ -765,6 +767,7 @@ vaex-jupyter==0.7.0
 vaex-ml==0.17.0
 vaex-server==0.8.1
 vaex-viz==0.5.1
+validators==0.19.0
 vecstack==0.4.0
 virtualenv==20.14.1
 visions==0.7.5
