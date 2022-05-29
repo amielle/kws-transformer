@@ -5,8 +5,6 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 from torchmetrics.functional import accuracy
 from torch import nn
 
-# 88% training, 84%+ test
-
 class Attention(nn.Module):
     def __init__(self, dim, num_heads=8, qkv_bias=False):
         super().__init__()
@@ -42,16 +40,18 @@ class Mlp(nn.Module):
       
         self.fc1 = nn.Linear(in_features, hidden_features)
         self.act = act_layer()
-        self.fc2 = nn.Linear(hidden_features, hidden_features)
-        self.act = act_layer()
-        self.fc3 = nn.Linear(hidden_features, out_features)
+        # Uncomment if testing with extra fc
+        # self.fc3 = nn.Linear(hidden_features, hidden_features)
+        # self.act = act_layer()
+        self.fc2 = nn.Linear(hidden_features, out_features)
 
     def forward(self, x):
         x = self.fc1(x)
+        # Uncomment if testing with extra fc
+        # x = self.act(x)
+        # x = self.fc3(x)
         x = self.act(x)
         x = self.fc2(x)
-        x = self.act(x)
-        x = self.fc3(x)
         return x
 
 
