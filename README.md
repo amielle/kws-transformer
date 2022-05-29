@@ -40,7 +40,7 @@ For future work, the model performance may be improved further by adding more da
 | Kernel Size                 | 3      | 3      | 3      | 3      | **3**      |
 | Extra Fully Connected Layer | True   | False  | False  | True   | **False**  |
 
-<sup>Table. 2 Parameters and corresponding test accuracy retrieved at the end of training from the implemented models. Parameters that were left unchanged across the different versions were left unmodified. It was observed that lowering some mel spectrogram variables caused zero values to pop up. Additionally, increasing the MLP ratio, batch size, and FC layers tended to lower the test accuracy. However, these were observations done on a single GPU system and it is possible that with more resources and longer training time, the accuracy can converge to better results with the larger models.</sup>
+<sup>Table. 2 Parameters and corresponding test accuracy retrieved at the end of training from the implemented models. Parameters that were left unchanged across the different versions were not included on the table. It was observed that lowering some mel spectrogram variables caused zero values to show during computation. Additionally, increasing the MLP ratio, batch size, and FC layers tended to lower the test accuracy. However, these were observations done on a single GPU system and it is possible that with more resources and longer training time, the accuracy can converge to better results with the larger models.</sup>
 
 ## 2. Usage guide
 
