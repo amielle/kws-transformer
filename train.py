@@ -12,10 +12,10 @@ from utils.model import KWSTransformer
 
 def get_args(parser):
     # model training hyperparameters
-    parser.add_argument('--batch-size', type=int, default=64, metavar='N',
-                        help='input batch size for training (default: 64)')
-    parser.add_argument('--max-epochs', type=int, default=1, metavar='N',
-                        help='number of epochs to train (default: 30)')
+    parser.add_argument('--batch-size', type=int, default=32, metavar='N',
+                        help='input batch size for training (default: 32)')
+    parser.add_argument('--max-epochs', type=int, default=70, metavar='N',
+                        help='number of epochs to train (default: 70)')
     parser.add_argument('--lr', type=float, default=0.001, metavar='LR',
                         help='learning rate (default: 0.001)')
 
@@ -26,6 +26,7 @@ def get_args(parser):
     parser.add_argument("--num-classes", type=int, default=37)
    
     # mel spectrogram parameters
+    # reducing the values caused issues / 0 values to appear
     parser.add_argument("--n-fft", type=int, default=1024)
     parser.add_argument("--n-mels", type=int, default=128)
     parser.add_argument("--win-length", type=int, default=None)
@@ -42,6 +43,7 @@ def get_args(parser):
     parser.add_argument('--embed_dim', type=int, default=64, help='embedding dimension')
     parser.add_argument('--num_heads', type=int, default=16, help='num_heads')
 
+    # increasing patch number typically lowered the accuracy
     parser.add_argument('--patch_num', type=int, default=4, help='patch_num')
     parser.add_argument('--kernel_size', type=int, default=3, help='kernel size')
     
@@ -79,10 +81,11 @@ class WandbCallback(Callback):
                 columns=columns,
                 data=data)
 
+
 if __name__ == "__main__":
     parser = ArgumentParser()
     args = get_args(parser)
-    print("No wandb:",args.no_wandb)
+    print("No wandb:", args.no_wandb)
 
     CLASSES = ['silence', 'unknown', 'backward', 'bed', 'bird', 'cat', 'dog', 'down', 'eight', 'five', 'follow',
             'forward', 'four', 'go', 'happy', 'house', 'learn', 'left', 'marvin', 'nine', 'no',
