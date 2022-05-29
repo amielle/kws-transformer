@@ -108,7 +108,7 @@ class KWSDataModule(LightningDataModule):
             self.test_dataset,
             batch_size=self.batch_size,
             num_workers=self.num_workers,
-            shuffle=True,
+            shuffle=False,
             pin_memory=True,
             collate_fn=self.collate_fn
         )
