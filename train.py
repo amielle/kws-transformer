@@ -12,10 +12,10 @@ from utils.model import KWSTransformer
 
 def get_args(parser):
     # model training hyperparameters
-    parser.add_argument('--batch-size', type=int, default=32, metavar='N',
-                        help='input batch size for training (default: 32)')
-    parser.add_argument('--max-epochs', type=int, default=70, metavar='N',
-                        help='number of epochs to train (default: 70)')
+    parser.add_argument('--batch-size', type=int, default=64, metavar='N',
+                        help='input batch size for training (default: 64)')
+    parser.add_argument('--max-epochs', type=int, default=20, metavar='N',
+                        help='number of epochs to train (default: 20)')
     parser.add_argument('--lr', type=float, default=0.001, metavar='LR',
                         help='learning rate (default: 0.001)')
 
@@ -39,9 +39,9 @@ def get_args(parser):
     parser.add_argument("--num-workers", type=int, default=2)
 
     # transformer arguments
-    parser.add_argument('--depth', type=int, default=32, help='depth')
-    parser.add_argument('--embed_dim', type=int, default=64, help='embedding dimension')
-    parser.add_argument('--num_heads', type=int, default=16, help='num_heads')
+    parser.add_argument('--depth', type=int, default=12, help='depth')
+    parser.add_argument('--embed_dim', type=int, default=128, help='embedding dimension')
+    parser.add_argument('--num_heads', type=int, default=8, help='num_heads')
 
     # increasing patch number typically lowered the accuracy
     parser.add_argument('--patch_num', type=int, default=4, help='patch_num')
