@@ -7,7 +7,6 @@ from pytorch_lightning import Trainer, Callback
 from pytorch_lightning.callbacks import ModelCheckpoint
 from argparse import ArgumentParser
 
-from utils.arghandler import get_args
 from utils.dataloader import KWSDataModule
 from utils.model import KWSTransformer
 
