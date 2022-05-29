@@ -7,9 +7,12 @@ Assignment 3: Keyword Spotting Using Transformer for EE 298Z Deep Learning (a.du
 
 ## 1. Intro
 ![image](https://user-images.githubusercontent.com/43136926/170849779-acd83e41-a35d-438d-abac-52af76eeb56d.png)
-<sup>The audio signal is converted to its mel spectrogram form as input for model. In this sample, the leftmost image shows the waveform shape for a sample audio of "left" with the next few images being the signal visualized in the frequency spectrum. <a href="https://github.com/izzajalandoni/Deep-Learning-Helper/blob/main/Notes/Homework_3.pdf">More information regarding spectrograms and the image referenced can be found here.</a></sup>
+<sup>The audio signal is converted to its mel spectrogram form as input for the model. In this sample, the leftmost image shows the waveform shape for a sample audio of "left" with the next few images being the signal visualized in the frequency spectrum. <a href="https://github.com/izzajalandoni/Deep-Learning-Helper/blob/main/Notes/Homework_3.pdf">More information regarding spectrograms and the image referenced can be found here.</a></sup>
 
 Keyword spotting is used to detect key phrases or words in an audio stream. This can be used in edge devices to detect user commands similar to the way smart assistants such as Alexa, Siri, or Bixby function. In this repository, a transformer-based model is trained on the [Speech Commands dataset](https://arxiv.org/pdf/1804.03209.pdf). A [dataloader used for KWS](https://github.com/roatienza/Deep-Learning-Experiments/blob/master/versions/2022/supervised/python/kws_demo.ipynb) and a [transformer model](https://github.com/roatienza/Deep-Learning-Experiments/blob/master/versions/2022/transformer/python/transformer_demo.ipynb) applied towards CIFAR 10 were modified to create the transformer KWS model. To test the model, modifications were done on the [kws-infer](https://github.com/roatienza/Deep-Learning-Experiments/blob/master/versions/2022/supervised/python/kws-infer.py) to ensure compatibility.
+
+For future work, the model performance may be improved further by adding more data from other datasets, resolving class imbalance by upsampling or synthesizing data from minority classes (e.g. "learn" and "backward" only contain 1,575 and 1,664 utterances respectively compared to the word "zero" which has 4,052 utterances in the dataset), and further experimentation with the parameter tuning. 
+
 
 <sup>Table. 1 Baseline Top-One accuracy evaluations from the Speech Commands paper using a default convolution model</sup>
 | Data     | V1 Training | V2 Training |
