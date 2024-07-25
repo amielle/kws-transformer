@@ -1,5 +1,5 @@
-# Transformer-based Keyword Spotting
-Assignment 3: Keyword Spotting Using Transformer for EE 298Z Deep Learning (a.dulay)
+# Transformer-based Keyword Spotting in Audios
+Keyword Spotting Using Transformer for EE 298Z Deep Learning
 
 ## Table of contents
 1. Intro
